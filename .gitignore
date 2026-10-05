@@ -1,0 +1,28 @@
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Secrets / config locale
+.env
+.env.local
+
+# Natifs générés (prebuild)
+/ios
+/android
+
+# OS
+.DS_Store
+Thumbs.db
+
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# Artefacts de build EAS telecharges localement
+build/
+
+# Clé de compte de service Firebase (FCM) : SECRÈTE, uploadée dans EAS, jamais commitée
+*-firebase-adminsdk-*.json
