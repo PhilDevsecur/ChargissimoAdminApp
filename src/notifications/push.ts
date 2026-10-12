@@ -23,6 +23,9 @@ Notifications.setNotificationHandler({
 
 let currentToken: string | null = null;
 
+/** Jeton Expo de CE téléphone, une fois enregistré (null : web, simulateur, permission refusée). */
+export const getCurrentPushToken = (): string | null => currentToken;
+
 /**
  * Demande l'autorisation, récupère le jeton Expo du téléphone et l'enregistre côté
  * serveur. Silencieux en cas d'échec (web, simulateur, refus) : l'app fonctionne sans.

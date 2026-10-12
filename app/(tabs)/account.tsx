@@ -8,6 +8,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { env } from '@/config/env';
 import { colors } from '@/theme';
 import { UpdateRow } from '@/components/UpdateRow';
+import { NotificationPrefs } from '@/components/NotificationPrefs';
 
 export default function AccountScreen() {
   const admin = useAuthStore((s) => s.admin);
@@ -37,12 +38,15 @@ export default function AccountScreen() {
         />
         <UpdateRow />
       </View>
+      <View style={styles.card}>
+        <NotificationPrefs />
+      </View>
       <Button mode="contained" icon="logout" onPress={logout} loading={busy} disabled={busy} buttonColor={colors.primaryDark}>
         Se déconnecter
       </Button>
       <Text style={styles.note}>
-        Notifications : nouvelle commande d'un client (site, app iOS/Android),
-        demande d'ouverture de compte. Après déconnexion, ce téléphone ne reçoit plus rien.
+        Notifications : nouvelle commande d'un client (site, app iOS/Android), message d'un visiteur sur le
+        site (réglable ci-dessus). Après déconnexion, ce téléphone ne reçoit plus rien.
       </Text>
     </View>
   );

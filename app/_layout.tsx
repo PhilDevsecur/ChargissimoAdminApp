@@ -59,6 +59,8 @@ export default function RootLayout() {
             <Stack.Screen name="login" options={{ headerShown: false }} />
             <Stack.Screen name="order/[id]" options={{ title: 'Commande' }} />
             <Stack.Screen name="customer/[id]" options={{ title: 'Client' }} />
+            <Stack.Screen name="messages" options={{ title: 'Messages du site' }} />
+            <Stack.Screen name="conversation/[id]" options={{ title: 'Conversation' }} />
           </Stack>
           <AuthGate />
           <PushBridge />

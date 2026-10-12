@@ -2,3 +2,4 @@
 // Metro choisit push.ts sur iOS/Android.
 export async function registerForPush(): Promise<void> {}
 export async function unregisterForPush(): Promise<void> {}
+export const getCurrentPushToken = (): string | null => null;

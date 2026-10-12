@@ -28,10 +28,12 @@ export function PushBridge() {
     handled.current = id;
 
     const data = lastResponse.notification.request.content.data as
-      | { type?: string; idOrders?: number }
+      | { type?: string; idOrders?: number; idChatConversations?: number }
       | undefined;
     if (data?.type === 'order' && data.idOrders) {
       router.push(`/order/${data.idOrders}`);
+    } else if (data?.type === 'chat' && data.idChatConversations) {
+      router.push(`/conversation/${data.idChatConversations}`);
     }
   }, [lastResponse, isAuthenticated, router]);
 

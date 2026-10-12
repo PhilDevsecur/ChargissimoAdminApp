@@ -92,3 +92,25 @@ npm run typecheck
 npx eas-cli@22.4.0 build --profile internal --platform all
 npm run update -- "…"        # mise à jour JS (force l'URL de prod)
 ```
+
+## Chat du site : bulle Messages + notifications (2026-10-07)
+
+- **Bulle « Messages » en haut à droite** du bandeau des onglets (`app/(tabs)/_layout.tsx`,
+  `headerRight`) : pastille = conversations du chat avec au moins un message visiteur non lu
+  (`GET /chat/unread-count`, rechargée à l'ouverture et sur les événements Pusher `chat`
+  `message` / `read`). Elle ouvre `app/messages.tsx` (liste En cours / Fermées) puis
+  `app/conversation/[id].tsx`. Ce n'est PAS un onglet (différence voulue avec Batsecur Admin,
+  dont ces fichiers sont repris du commit `c65740b`).
+- Routeur chat du FRAMEWORK monté côté serveur sur `/api/mobile-admin/chat`
+  (`createChatAdminRouter`). ⚠️ Répondre envoie un VRAI message au visiteur ; ouvrir une
+  conversation la marque comme LUE (écriture) — ne pas l'ouvrir « pour voir ».
+- **Notifications** : nouveau message visiteur → push Expo (`notifyChatMessage`, une
+  notification par conversation grâce à `collapseId`), toucher ouvre la conversation
+  (`PushBridge`, `type: 'chat'`). Réglage **par téléphone** « Messages du site » dans l'écran
+  Compte (`NotificationPrefs`, `GET|PUT /push/preferences`, colonne `notifyChat`). Si aucun
+  téléphone n'est abonné, le serveur renvoie `false` et le framework envoie l'email de secours.
+- ⚠️ Le serveur Chargissimo doit être redémarré avec ce code : il crée alors les tables
+  `ChatConversations` / `ChatMessages` (chat) et la colonne `notifyChat`. Tant que ce n'est pas
+  fait en production, la bulle reste sans pastille (erreurs réseau avalées).
+- Pas encore publié : à envoyer avec `npm run update -- "…"` une fois le backend déployé.
+

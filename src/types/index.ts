@@ -165,3 +165,36 @@ export interface CustomerDetail {
   /** HTML d'éditeur riche (TinyMCE) : toujours passer par htmlToText. */
   notes: { note: string; accountingNote: string; alertMessage: string; badPayerWarning: string };
 }
+
+// ─── Chat du site (framework, /api/mobile-admin/chat) ────────────────────────
+export type ChatStatus = 'open' | 'closed';
+
+export interface ChatConversation {
+  idChatConversations: number;
+  publicId: string;
+  status: ChatStatus;
+  idUsers: number | null;
+  idCustomers: number | null;
+  numClient: string | null;
+  visitorName: string | null;
+  visitorEmail: string | null;
+  visitorCompany: string | null;
+  lang: string | null;
+  pageUrl: string | null;
+  lastMessageAt: string | null;
+  lastMessageText: string | null;
+  lastMessageSender: 'visitor' | 'admin' | null;
+  createdAt: string;
+  /** Messages du visiteur non lus par l'équipe (liste seulement). */
+  unreadCount?: number;
+}
+
+/** Texte BRUT : toujours affiché dans un <Text>, jamais interprété comme du HTML. */
+export interface ChatMessage {
+  idChatMessages: number;
+  sender: 'visitor' | 'admin';
+  adminName: string | null;
+  text: string;
+  createdAt: string;
+  readAt: string | null;
+}
